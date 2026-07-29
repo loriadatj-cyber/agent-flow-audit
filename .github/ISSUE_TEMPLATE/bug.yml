@@ -1,0 +1,36 @@
+name: Bug report
+description: Report an incorrect result or scanner failure
+title: "bug: "
+labels: [bug]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Result type
+      options:
+        - False positive
+        - False negative
+        - Parse failure
+        - CLI or Action failure
+    validations:
+      required: true
+  - type: textarea
+    id: workflow
+    attributes:
+      label: Minimal workflow
+      description: Remove credentials and private project details.
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Agent Flow Audit version
+    validations:
+      required: true

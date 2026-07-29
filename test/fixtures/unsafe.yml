@@ -1,0 +1,37 @@
+name: Unsafe AI triage
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+  id-token: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Ask Codex
+        id: review
+        uses: openai/codex-action@v1
+        env:
+          REPOSITORY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          prompt: |
+            Triage this issue:
+            ${{ github.event.issue.title }}
+            ${{ github.event.issue.body }}
+
+      - name: Execute proposed command
+        run: ${{ steps.review.outputs.command }}
+
+      - name: Print title
+        run: echo "${{ github.event.issue.title }}"

@@ -1,0 +1,31 @@
+name: Agent Flow Audit
+description: Explainable data-flow security analysis for AI-powered GitHub workflows
+author: loriadatj-cyber
+branding:
+  icon: shield
+  color: purple
+inputs:
+  paths:
+    description: Newline- or comma-separated workflow files and directories
+    required: false
+    default: .github/workflows
+  fail-on:
+    description: Minimum severity that fails the action, or none
+    required: false
+    default: high
+  sarif-file:
+    description: Path for the generated SARIF report
+    required: false
+    default: agent-flow-audit.sarif
+outputs:
+  sarif-file:
+    description: Path to the generated SARIF report
+  findings:
+    description: Total number of findings
+  critical:
+    description: Number of critical findings
+  high:
+    description: Number of high findings
+runs:
+  using: node20
+  main: dist/action/index.cjs

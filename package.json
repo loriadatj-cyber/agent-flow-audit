@@ -1,0 +1,70 @@
+{
+  "name": "agent-flow-audit",
+  "version": "0.1.0",
+  "description": "Explainable data-flow security analysis for AI-powered GitHub workflows.",
+  "type": "module",
+  "bin": {
+    "agent-flow-audit": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "docs",
+    "examples",
+    "action.yml",
+    "CHANGELOG.md",
+    "ROADMAP.md",
+    "SECURITY.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "build:action": "node scripts/build-action.mjs",
+    "test:action": "node scripts/test-action.mjs",
+    "check": "tsc --noEmit",
+    "test": "tsx --test test/**/*.test.ts",
+    "test:coverage": "node --experimental-test-coverage --test-coverage-lines=90 --test-coverage-branches=70 --test-coverage-functions=80 --import tsx --test test/**/*.test.ts",
+    "lint": "eslint .",
+    "verify": "npm run check && npm run lint && npm test && npm run build && npm run build:action && npm run test:action",
+    "prepack": "npm run verify"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "github-actions",
+    "ai-agent",
+    "prompt-injection",
+    "security",
+    "sarif",
+    "static-analysis",
+    "taint-analysis"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loriadatj-cyber/agent-flow-audit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/loriadatj-cyber/agent-flow-audit/issues"
+  },
+  "homepage": "https://github.com/loriadatj-cyber/agent-flow-audit#readme",
+  "dependencies": {
+    "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.1.0",
+    "esbuild": "^0.25.8",
+    "eslint": "^10.8.0",
+    "tsx": "^4.20.3",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.65.0"
+  }
+}

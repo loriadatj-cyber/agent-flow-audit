@@ -1,0 +1,28 @@
+name: Read-only AI summary
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Summarize a prepared file
+        id: summary
+        uses: openai/codex-action@v1
+        with:
+          prompt: Read the sanitized input from /tmp/request.json and summarize it.
+
+      - name: Store structured output
+        uses: actions/upload-artifact@v4
+        with:
+          name: summary
+          path: output.json

@@ -1,0 +1,11 @@
+name: Accepted shell risk
+on: issues
+permissions:
+  contents: read
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      # agent-flow-audit: ignore AFA003
+      - run: echo "${{ github.event.issue.title }}"

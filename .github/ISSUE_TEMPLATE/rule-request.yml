@@ -1,0 +1,26 @@
+name: Rule request
+description: Propose a new agent data-flow or capability rule
+title: "rule: "
+labels: [rule]
+body:
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Trust boundary
+      description: Identify the attacker-controlled source and concrete capability or sink.
+    validations:
+      required: true
+  - type: textarea
+    id: unsafe
+    attributes:
+      label: Unsafe example
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: safe
+    attributes:
+      label: Safe neighboring example
+      render: yaml
+    validations:
+      required: true

@@ -1,0 +1,24 @@
+name: Unsafe AI triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  triage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ask Codex
+        id: review
+        uses: openai/codex-action@v1
+        with:
+          prompt: |
+            Triage this untrusted issue:
+            ${{ github.event.issue.body }}
+
+      - name: Execute the response
+        run: ${{ steps.review.outputs.command }}

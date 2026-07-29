@@ -1,0 +1,12 @@
+node_modules/
+dist/*
+!dist/action/
+dist/action/*
+!dist/action/index.cjs
+!dist/action/index.cjs.map
+coverage/
+.tmp/
+*.log
+.DS_Store
+.idea/
+.vscode/
