@@ -7420,9 +7420,6 @@ function parsePermissions(value) {
   }
   return permissions;
 }
-function mergePermissions(global, job) {
-  return Object.keys(job).length > 0 ? job : global;
-}
 function writeCapabilities(permissions) {
   return Object.entries(permissions).filter(([name, level]) => level === "write" && WRITE_CAPABILITIES.has(name)).map(([name]) => name).sort();
 }
@@ -7969,10 +7966,7 @@ function parseActionsYaml(path, source) {
   const jobs = [];
   for (const [jobId, rawJob] of Object.entries(jobsRecord)) {
     const job = asRecord(rawJob);
-    const jobPermissions = mergePermissions(
-      globalPermissions,
-      parsePermissions(job.permissions)
-    );
+    const jobPermissions = Object.hasOwn(job, "permissions") ? parsePermissions(job.permissions) : globalPermissions;
     const rawSteps = Array.isArray(job.steps) ? job.steps : [];
     const steps = rawSteps.map(
       (rawStep, index) => parseStep(path, source, rawStep, index)
@@ -8081,8 +8075,15 @@ var SUPPORTED_EXTENSIONS = /\.(?:ya?ml|md|markdown)$/iu;
 async function scan(options = {}) {
   const cwd = (0, import_node_path.resolve)(options.cwd ?? process.cwd());
   const requested = options.paths ?? [".github/workflows"];
-  const files = (await Promise.all(requested.map((path) => discover((0, import_node_path.resolve)(cwd, path))))).flat().sort();
-  const result = { files: [], findings: [], errors: [] };
+  const discoveries = await Promise.all(
+    requested.map((path) => discoverRequested(cwd, path))
+  );
+  const files = discoveries.flatMap((discovery) => discovery.files).flat().sort();
+  const result = {
+    files: [],
+    findings: [],
+    errors: discoveries.flatMap((discovery) => discovery.errors)
+  };
   for (const absolutePath of files) {
     const displayPath = (0, import_node_path.relative)(cwd, absolutePath).replaceAll("\\", "/");
     try {
@@ -8101,6 +8102,23 @@ async function scan(options = {}) {
     (left, right) => left.location.path.localeCompare(right.location.path) || left.location.line - right.location.line || left.ruleId.localeCompare(right.ruleId)
   );
   return result;
+}
+async function discoverRequested(cwd, requestedPath) {
+  const absolutePath = (0, import_node_path.resolve)(cwd, requestedPath);
+  try {
+    await (0, import_promises.stat)(absolutePath);
+  } catch (error) {
+    return {
+      files: [],
+      errors: [
+        {
+          path: (0, import_node_path.relative)(cwd, absolutePath).replaceAll("\\", "/"),
+          message: `Requested path is unavailable: ${error instanceof Error ? error.message : String(error)}`
+        }
+      ]
+    };
+  }
+  return { files: await discover(absolutePath), errors: [] };
 }
 async function discover(path) {
   let metadata;

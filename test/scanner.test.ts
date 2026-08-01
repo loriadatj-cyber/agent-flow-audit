@@ -41,6 +41,15 @@ void test("reports parse errors without aborting the whole scan", async () => {
   );
 });
 
+void test("reports a requested path that does not exist", async () => {
+  const result = await scan({ paths: ["test/data/does-not-exist.yml"] });
+
+  assert.equal(result.files.length, 0);
+  assert.equal(result.errors.length, 1);
+  assert.equal(result.errors[0]?.path, "test/data/does-not-exist.yml");
+  assert.match(result.errors[0]?.message ?? "", /requested path is unavailable/iu);
+});
+
 function compareFindings(
   left: { location: { path: string; line: number }; ruleId: string },
   right: { location: { path: string; line: number }; ruleId: string },

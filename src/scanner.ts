@@ -10,13 +10,19 @@ const SUPPORTED_EXTENSIONS = /\.(?:ya?ml|md|markdown)$/iu;
 export async function scan(options: ScanOptions = {}): Promise<ScanResult> {
   const cwd = resolve(options.cwd ?? process.cwd());
   const requested = options.paths ?? [".github/workflows"];
-  const files = (
-    await Promise.all(requested.map((path) => discover(resolve(cwd, path))))
-  )
+  const discoveries = await Promise.all(
+    requested.map((path) => discoverRequested(cwd, path)),
+  );
+  const files = discoveries
+    .flatMap((discovery) => discovery.files)
     .flat()
     .sort();
 
-  const result: ScanResult = { files: [], findings: [], errors: [] };
+  const result: ScanResult = {
+    files: [],
+    findings: [],
+    errors: discoveries.flatMap((discovery) => discovery.errors),
+  };
   for (const absolutePath of files) {
     const displayPath = relative(cwd, absolutePath).replaceAll("\\", "/");
     try {
@@ -39,6 +45,27 @@ export async function scan(options: ScanOptions = {}): Promise<ScanResult> {
       left.ruleId.localeCompare(right.ruleId),
   );
   return result;
+}
+
+async function discoverRequested(
+  cwd: string,
+  requestedPath: string,
+): Promise<{ files: string[]; errors: ScanResult["errors"] }> {
+  const absolutePath = resolve(cwd, requestedPath);
+  try {
+    await stat(absolutePath);
+  } catch (error) {
+    return {
+      files: [],
+      errors: [
+        {
+          path: relative(cwd, absolutePath).replaceAll("\\", "/"),
+          message: `Requested path is unavailable: ${error instanceof Error ? error.message : String(error)}`,
+        },
+      ],
+    };
+  }
+  return { files: await discover(absolutePath), errors: [] };
 }
 
 async function discover(path: string): Promise<string[]> {

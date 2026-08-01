@@ -1,7 +1,7 @@
 import { parseDocument } from "yaml";
 
 import { locate } from "./location.js";
-import { mergePermissions, parsePermissions } from "./permissions.js";
+import { parsePermissions } from "./permissions.js";
 import type {
   ParsedWorkflow,
   PermissionMap,
@@ -34,10 +34,9 @@ function parseActionsYaml(path: string, source: string): ParsedWorkflow {
 
   for (const [jobId, rawJob] of Object.entries(jobsRecord)) {
     const job = asRecord(rawJob);
-    const jobPermissions = mergePermissions(
-      globalPermissions,
-      parsePermissions(job.permissions),
-    );
+    const jobPermissions = Object.hasOwn(job, "permissions")
+      ? parsePermissions(job.permissions)
+      : globalPermissions;
     const rawSteps = Array.isArray(job.steps) ? job.steps : [];
     const steps = rawSteps.map((rawStep, index) =>
       parseStep(path, source, rawStep, index),
