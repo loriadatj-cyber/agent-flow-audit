@@ -30,3 +30,21 @@ void test("rejects Markdown without workflow frontmatter", () => {
     /must start with YAML frontmatter/u,
   );
 });
+
+void test("treats an explicit empty job permissions map as no permissions", () => {
+  const workflow = parseWorkflow(
+    ".github/workflows/empty-permissions.yml",
+    [
+      "on: issues",
+      "permissions: write-all",
+      "jobs:",
+      "  audit:",
+      "    permissions: {}",
+      "    steps:",
+      "      - uses: openai/codex-action@v1",
+    ].join("\n"),
+  );
+
+  assert.equal(workflow.permissions.contents, "write");
+  assert.deepEqual(workflow.jobs[0]?.permissions, {});
+});

@@ -2,6 +2,7 @@
 
 import { realpathSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
+import { createRequire } from "node:module";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,7 +23,8 @@ interface CliOptions {
   traces: boolean;
 }
 
-const VERSION = "0.1.0";
+const VERSION = (createRequire(import.meta.url)("../package.json") as { version: string })
+  .version;
 const SEVERITY_RANK: Record<Severity, number> = {
   critical: 5,
   high: 4,

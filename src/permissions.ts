@@ -37,10 +37,6 @@ export function parsePermissions(value: unknown): PermissionMap {
   return permissions;
 }
 
-export function mergePermissions(global: PermissionMap, job: PermissionMap): PermissionMap {
-  return Object.keys(job).length > 0 ? job : global;
-}
-
 export function writeCapabilities(permissions: PermissionMap): string[] {
   return Object.entries(permissions)
     .filter(([name, level]) => level === "write" && WRITE_CAPABILITIES.has(name))

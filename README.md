@@ -1,5 +1,10 @@
 # Agent Flow Audit
 
+[![CI](https://github.com/loriadatj-cyber/agent-flow-audit/actions/workflows/ci.yml/badge.svg)](https://github.com/loriadatj-cyber/agent-flow-audit/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/agent-flow-audit.svg)](https://www.npmjs.com/package/agent-flow-audit)
+[![npm downloads](https://img.shields.io/npm/dw/agent-flow-audit.svg)](https://www.npmjs.com/package/agent-flow-audit)
+[![license](https://img.shields.io/github/license/loriadatj-cyber/agent-flow-audit.svg)](LICENSE)
+
 Explainable data-flow security analysis for AI-powered GitHub workflows.
 
 Agent Flow Audit follows attacker-controlled GitHub event data through prompts,
@@ -25,6 +30,9 @@ AI agent output -> shell command
 
 The scanner reports that complete path instead of only matching suspicious
 words.
+
+The CLI and GitHub Action are tested on Linux and Windows with Node.js 20, 22,
+and 24. The CLI entry point and bundled Action are exercised as real processes.
 
 ## Quick start
 
