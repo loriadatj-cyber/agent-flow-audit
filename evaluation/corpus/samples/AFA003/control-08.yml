@@ -1,0 +1,12 @@
+name: Quoted event environment 8
+on: pull_request_target
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print quoted environment
+        run: "printf '%s\\n' \"$EVENT_TEXT\""
+        env:
+          EVENT_TEXT: ${{ github.event.pull_request.body }}

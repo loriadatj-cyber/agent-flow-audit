@@ -1,0 +1,14 @@
+name: Agent without OIDC 2
+on: workflow_dispatch
+permissions:
+  contents: read
+  id-token: none
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude evaluation 2
+        id: agent
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: "Review the deployment manifest."

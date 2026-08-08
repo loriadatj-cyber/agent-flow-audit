@@ -1,0 +1,13 @@
+name: Read-only agent capability 5
+on: pull_request_review_comment
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository agent evaluation 5
+        id: agent
+        uses: example/ai-agent@v1
+        with:
+          prompt: "Review the checked-in policy file."

@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/loriadatj-cyber/agent-flow-audit/blob/main/evaluation/corpus.schema.json",
+  "title": "Agent Flow Audit evaluation corpus",
+  "type": "object",
+  "required": ["schemaVersion", "datasetVersion", "description", "rules", "cases"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "datasetVersion": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "rules": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^AFA[0-9]{3}$" },
+      "uniqueItems": true
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 100,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "file",
+          "sha256",
+          "expectedFindings",
+          "reviewedNonFindings",
+          "source",
+          "review"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "file": { "type": "string", "pattern": "^samples/.+\\.ya?ml$" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "expectedFindings": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^AFA[0-9]{3}$" },
+            "uniqueItems": true
+          },
+          "reviewedNonFindings": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^AFA[0-9]{3}$" },
+            "uniqueItems": true
+          },
+          "source": {
+            "type": "object",
+            "required": ["type"],
+            "properties": {
+              "type": { "enum": ["public", "synthetic"] },
+              "generator": { "type": "string" },
+              "template": { "type": "string" },
+              "variant": { "type": "integer", "minimum": 1 },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "additionalProperties": false
+          },
+          "review": {
+            "type": "object",
+            "required": ["status", "notes"],
+            "properties": {
+              "status": { "const": "reviewed" },
+              "notes": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

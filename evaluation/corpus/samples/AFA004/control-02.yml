@@ -1,0 +1,13 @@
+name: Read-only agent capability 2
+on: issue_comment
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude evaluation 2
+        id: agent
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: "Review the checked-in policy file."

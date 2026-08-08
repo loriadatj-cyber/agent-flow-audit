@@ -1,0 +1,13 @@
+name: Read-only agent capability 4
+on: pull_request_review
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Agentic Workflow evaluation 4
+        id: agent
+        uses: github/gh-aw@v1
+        with:
+          prompt: "Review the checked-in policy file."

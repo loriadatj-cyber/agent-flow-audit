@@ -1,0 +1,13 @@
+name: Read-only agent capability 1
+on: issues
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codex evaluation 1
+        id: agent
+        uses: openai/codex-action@v1
+        with:
+          prompt: "Review the checked-in policy file."

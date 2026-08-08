@@ -2,6 +2,21 @@
 
 All notable changes will be documented in this file.
 
+## 0.1.2 - 2026-08-08
+
+### Added
+
+- Add a deterministic 112-case labeled evaluation corpus with per-case source,
+  review, expected finding, reviewed non-finding, and SHA-256 metadata.
+- Publish reproducible per-rule precision and recall reports and enforce them in
+  CI with `npm run evaluation:check`.
+- Document the evaluation methodology and known real-world blind spots.
+
+### Fixed
+
+- Recognize versioned `github/gh-aw@v1` Agentic Workflow actions instead of
+  treating the `@version` suffix as an unknown provider signature.
+
 ## 0.1.1 - 2026-08-01
 
 ### Fixed

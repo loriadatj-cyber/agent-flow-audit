@@ -1,0 +1,10 @@
+name: Event data shell flow 2
+on: issue_comment
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event data
+        run: "printf '%s\\n' ${{ github.event.comment.body }}"

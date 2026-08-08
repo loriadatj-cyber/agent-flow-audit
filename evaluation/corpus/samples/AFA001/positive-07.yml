@@ -1,0 +1,12 @@
+name: Privileged prompt flow 7
+on: discussion_comment
+permissions:
+  deployments: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude CLI evaluation 7
+        id: agent
+        run: |
+          claude "${{ github.event.comment.body }}"

@@ -1,0 +1,12 @@
+name: Broad agent capability 8
+on: pull_request_target
+permissions:
+  statuses: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini CLI evaluation 8
+        id: agent
+        run: |
+          gemini "Review the checked-in policy file."
