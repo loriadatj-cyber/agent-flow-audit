@@ -28,7 +28,10 @@ export function findTaintSources(
     pattern.lastIndex = 0;
     for (const match of text.matchAll(pattern)) {
       const expression = match[0];
-      if (expression !== undefined) {
+      if (
+        expression !== undefined &&
+        !isFixedLiteralSelector(text, match.index ?? 0)
+      ) {
         results.push({
           expression,
           label,
@@ -42,6 +45,21 @@ export function findTaintSources(
   }
 
   return deduplicateSources(results);
+}
+
+function isFixedLiteralSelector(text: string, sourceIndex: number): boolean {
+  const expressionStart = text.lastIndexOf("${{", sourceIndex);
+  const expressionEnd = text.indexOf("}}", sourceIndex);
+  if (expressionStart < 0 || expressionEnd < 0) {
+    return false;
+  }
+
+  const body = text.slice(expressionStart + 3, expressionEnd).trim();
+  const quotedLiteral = String.raw`(?:"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')`;
+  return new RegExp(
+    String.raw`&&\s*${quotedLiteral}\s*\|\|\s*${quotedLiteral}\s*$`,
+    "u",
+  ).test(body);
 }
 
 export function containsSecretReference(value: unknown): boolean {

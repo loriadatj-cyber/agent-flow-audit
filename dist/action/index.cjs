@@ -7443,7 +7443,7 @@ function findTaintSources(path, source, value, anchor) {
     pattern.lastIndex = 0;
     for (const match of text.matchAll(pattern)) {
       const expression = match[0];
-      if (expression !== void 0) {
+      if (expression !== void 0 && !isFixedLiteralSelector(text, match.index ?? 0)) {
         results.push({
           expression,
           label,
@@ -7453,6 +7453,19 @@ function findTaintSources(path, source, value, anchor) {
     }
   }
   return deduplicateSources(results);
+}
+function isFixedLiteralSelector(text, sourceIndex) {
+  const expressionStart = text.lastIndexOf("${{", sourceIndex);
+  const expressionEnd = text.indexOf("}}", sourceIndex);
+  if (expressionStart < 0 || expressionEnd < 0) {
+    return false;
+  }
+  const body = text.slice(expressionStart + 3, expressionEnd).trim();
+  const quotedLiteral = String.raw`(?:"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')`;
+  return new RegExp(
+    String.raw`&&\s*${quotedLiteral}\s*\|\|\s*${quotedLiteral}\s*$`,
+    "u"
+  ).test(body);
 }
 function containsSecretReference(value) {
   return /(?:secrets\.[A-Za-z0-9_]+|github\.token|GITHUB_TOKEN)/u.test(stringifyValue(value));
@@ -7550,11 +7563,12 @@ var AGENT_ACTION_PATTERNS = [
   /openai\/codex-action/iu,
   /anthropics\/claude-code-action/iu,
   /google-github-actions\/run-gemini-cli/iu,
-  /github\/gh-aw(?:[/@]|$)/iu,
+  /^github\/gh-aw(?:@|$)/iu,
   /(?:^|[/_-])(?:ai-)?agent(?:[/_@-]|$)/iu,
   /^agentic:/iu
 ];
-var AGENT_COMMAND_PATTERN = /(?:^|[\s;&|])(?:codex\s+(?:exec|run)|claude(?:\s|$)|gemini(?:\s|$)|copilot(?:\s|$))/imu;
+var AGENT_COMMAND_AT_BOUNDARY_PATTERN = /(?:^|[\n;&|]\s*)(?:sudo\s+(?:-\S+\s+)*)?(?:codex\s+(?:exec|run)|claude(?:\s|$)|gemini(?:\s|$)|copilot(?:\s|$))/imu;
+var PATH_QUALIFIED_AGENT_COMMAND_PATTERN = /(?:^|[\s'"(])(?:[A-Za-z]:)?(?:[./\\][^\s'";&|()]+[/\\])+(?:codex|claude|gemini|copilot)(?:\.exe)?(?=\s|$)/imu;
 function evaluateWorkflow(workflow) {
   const findings = [];
   const untrustedTrigger = workflow.triggers.some(
@@ -7648,7 +7662,7 @@ function evaluateWorkflow(workflow) {
 }
 function isAgentStep(step) {
   const uses = step.uses ?? "";
-  return AGENT_ACTION_PATTERNS.some((pattern) => pattern.test(uses)) || step.run !== void 0 && AGENT_COMMAND_PATTERN.test(step.run);
+  return AGENT_ACTION_PATTERNS.some((pattern) => pattern.test(uses)) || step.run !== void 0 && (AGENT_COMMAND_AT_BOUNDARY_PATTERN.test(step.run) || PATH_QUALIFIED_AGENT_COMMAND_PATTERN.test(step.run));
 }
 function evaluateShellFlows(workflow, job, agents) {
   const findings = [];
@@ -7968,14 +7982,19 @@ function parseActionsYaml(path, source) {
     const job = asRecord(rawJob);
     const jobPermissions = Object.hasOwn(job, "permissions") ? parsePermissions(job.permissions) : globalPermissions;
     const rawSteps = Array.isArray(job.steps) ? job.steps : [];
-    const steps = rawSteps.map(
-      (rawStep, index) => parseStep(path, source, rawStep, index)
-    );
+    const jobLocation = locate(path, source, `${jobId}:`);
+    const steps = [];
+    let anchor = jobLocation;
+    for (const [index, rawStep] of rawSteps.entries()) {
+      const parsed = parseStep(path, source, rawStep, index, anchor);
+      steps.push(parsed);
+      anchor = parsed.location;
+    }
     jobs.push({
       id: jobId,
       permissions: jobPermissions,
       steps,
-      location: locate(path, source, `${jobId}:`)
+      location: jobLocation
     });
   }
   return {
@@ -8034,12 +8053,12 @@ function parseAgenticMarkdown(path, source) {
     ]
   };
 }
-function parseStep(path, source, rawStep, index) {
+function parseStep(path, source, rawStep, index, anchor) {
   const step = asRecord(rawStep);
   const uses = typeof step.uses === "string" ? step.uses : void 0;
   const run2 = typeof step.run === "string" ? step.run : void 0;
   const name = typeof step.name === "string" ? step.name : uses ?? (run2 === void 0 ? `step-${index + 1}` : run2.split(/\r?\n/u)[0] ?? `step-${index + 1}`);
-  const needle = uses ?? run2?.split(/\r?\n/u)[0] ?? name;
+  const location = typeof step.name === "string" ? locateYamlScalarAfter(path, source, "name", step.name, anchor) : uses !== void 0 ? locateYamlScalarAfter(path, source, "uses", uses, anchor) : locateAfter(path, source, run2?.split(/\r?\n/u)[0] ?? name, anchor);
   return {
     index,
     ...typeof step.id === "string" ? { id: step.id } : {},
@@ -8048,8 +8067,27 @@ function parseStep(path, source, rawStep, index) {
     ...run2 === void 0 ? {} : { run: run2 },
     with: asRecord(step.with),
     env: asRecord(step.env),
-    location: locate(path, source, needle)
+    location
   };
+}
+function locateYamlScalarAfter(path, source, key, value, anchor) {
+  const lines = source.split(/\r?\n/u);
+  const keyPattern = new RegExp(`^\\s*(?:-\\s*)?${key}:\\s*(.+?)\\s*$`, "u");
+  for (let index = Math.max(0, anchor.line - 1); index < lines.length; index += 1) {
+    const line = lines[index] ?? "";
+    const match = keyPattern.exec(line);
+    if (match === null) continue;
+    const raw = (match[1] ?? "").replace(/\s+#.*$/u, "").trim();
+    const scalar = raw.startsWith('"') && raw.endsWith('"') || raw.startsWith("'") && raw.endsWith("'") ? raw.slice(1, -1) : raw;
+    if (scalar === value) {
+      return {
+        path,
+        line: index + 1,
+        column: Math.max(1, line.indexOf(value) + 1)
+      };
+    }
+  }
+  return locateAfter(path, source, value, anchor);
 }
 function parseTriggers(value) {
   if (typeof value === "string") {

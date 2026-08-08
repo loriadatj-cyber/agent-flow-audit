@@ -1,0 +1,10 @@
+name: Public regression - gh-aw setup helper
+on: issues
+permissions:
+  issues: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Scripts
+        uses: github/gh-aw/actions/setup@9cbca3cd9be433a23a38e4da332635097fd40251

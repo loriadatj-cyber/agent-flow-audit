@@ -83,13 +83,15 @@ const AGENT_ACTION_PATTERNS = [
   /openai\/codex-action/iu,
   /anthropics\/claude-code-action/iu,
   /google-github-actions\/run-gemini-cli/iu,
-  /github\/gh-aw(?:[/@]|$)/iu,
+  /^github\/gh-aw(?:@|$)/iu,
   /(?:^|[/_-])(?:ai-)?agent(?:[/_@-]|$)/iu,
   /^agentic:/iu,
 ];
 
-const AGENT_COMMAND_PATTERN =
-  /(?:^|[\s;&|])(?:codex\s+(?:exec|run)|claude(?:\s|$)|gemini(?:\s|$)|copilot(?:\s|$))/imu;
+const AGENT_COMMAND_AT_BOUNDARY_PATTERN =
+  /(?:^|[\n;&|]\s*)(?:sudo\s+(?:-\S+\s+)*)?(?:codex\s+(?:exec|run)|claude(?:\s|$)|gemini(?:\s|$)|copilot(?:\s|$))/imu;
+const PATH_QUALIFIED_AGENT_COMMAND_PATTERN =
+  /(?:^|[\s'"(])(?:[A-Za-z]:)?(?:[./\\][^\s'";&|()]+[/\\])+(?:codex|claude|gemini|copilot)(?:\.exe)?(?=\s|$)/imu;
 
 export function evaluateWorkflow(workflow: ParsedWorkflow): Finding[] {
   const findings: Finding[] = [];
@@ -197,7 +199,9 @@ export function isAgentStep(step: WorkflowStep): boolean {
   const uses = step.uses ?? "";
   return (
     AGENT_ACTION_PATTERNS.some((pattern) => pattern.test(uses)) ||
-    (step.run !== undefined && AGENT_COMMAND_PATTERN.test(step.run))
+    (step.run !== undefined &&
+      (AGENT_COMMAND_AT_BOUNDARY_PATTERN.test(step.run) ||
+        PATH_QUALIFIED_AGENT_COMMAND_PATTERN.test(step.run)))
   );
 }
 

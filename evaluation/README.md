@@ -33,10 +33,12 @@ metrics, and compares them with `results/latest.json` and `results/latest.md`.
 - public source or deterministic generation metadata; and
 - a completed review note.
 
-The initial dataset contains 112 synthetic cases: eight positive and eight
-neighboring control cases for each of the seven rules. Variants cover supported
-Codex, Claude, Gemini, GitHub Agentic Workflow, generic agent action, and CLI
-signatures, along with different triggers and capabilities.
+The dataset contains 112 synthetic cases plus five minimized, attributed
+regressions derived from the public-repository pilot. The synthetic baseline has
+eight positive and eight neighboring control cases for each of the seven rules.
+Variants cover supported Codex, Claude, Gemini, GitHub Agentic Workflow,
+generic agent action, and CLI signatures, along with different triggers and
+capabilities.
 
 ## Metrics
 
@@ -60,7 +62,7 @@ repository permission default.
 - Repository and organization default token permissions are not available to
   an offline workflow scan.
 - Suppression scope is currently based on nearby source lines.
-- The synthetic baseline does not measure prevalence or maintainer impact.
+- The corpus does not measure prevalence or maintainer impact.
 
 Public workflow samples may be contributed when their license and source URL
 are recorded. Sensitive findings must follow the source repository's security

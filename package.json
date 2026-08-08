@@ -1,6 +1,6 @@
 {
   "name": "agent-flow-audit",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Explainable data-flow security analysis for AI-powered GitHub workflows.",
   "type": "module",
   "bin": {

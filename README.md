@@ -147,10 +147,11 @@ a blocking control.
 
 ## Reproducible evaluation
 
-The committed evaluation baseline contains 112 reviewed synthetic cases: eight
-positive and eight neighboring control cases for every rule. Each case records
-its expected findings, reviewed non-findings, generation metadata, review note,
-and SHA-256 digest.
+The committed evaluation baseline contains 112 reviewed synthetic cases plus
+five minimized regressions derived from a ten-repository public pilot. The
+synthetic set has eight positive and eight neighboring control cases for every
+rule. Each case records its expected findings, reviewed non-findings, source or
+generation metadata, review note, and SHA-256 digest.
 
 ```bash
 npm run evaluation:check
@@ -160,6 +161,10 @@ See [evaluation/README.md](evaluation/README.md) for the methodology, current
 [per-rule precision and recall](evaluation/results/latest.md), reproduction
 steps, and known blind spots. These metrics describe the controlled corpus and
 are not presented as unconstrained real-world accuracy.
+
+The [August 2026 public-repository pilot](evaluation/adoption/2026-08-public-pilot.md)
+records the candidate set, pinned commits, aggregate manual review, confirmed
+false positives and false negatives, and the resulting regression fixes.
 
 ## Development
 

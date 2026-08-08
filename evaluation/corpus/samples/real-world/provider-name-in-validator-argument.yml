@@ -1,0 +1,12 @@
+name: Public regression - provider name as data
+on: issues
+permissions:
+  issues: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate COPILOT_GITHUB_TOKEN secret
+        run: "/opt/gh-aw/actions/validate_multi_secret.sh COPILOT_GITHUB_TOKEN 'GitHub Copilot CLI'"
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}

@@ -48,3 +48,18 @@ void test("treats an explicit empty job permissions map as no permissions", () =
   assert.equal(workflow.permissions.contents, "write");
   assert.deepEqual(workflow.jobs[0]?.permissions, {});
 });
+
+void test("locates an action use instead of an earlier comment mentioning it", () => {
+  const source = [
+    "on: workflow_dispatch",
+    "jobs:",
+    "  audit:",
+    "    runs-on: ubuntu-latest",
+    "    steps:",
+    "      # openai/codex-action@v1 is installed by the next step.",
+    "      - uses: openai/codex-action@v1",
+  ].join("\n");
+  const workflow = parseWorkflow("comment-location.yml", source);
+
+  assert.equal(workflow.jobs[0]?.steps[0]?.location.line, 7);
+});
