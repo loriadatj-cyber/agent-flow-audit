@@ -166,6 +166,20 @@ function createCases() {
       content,
     });
   };
+  const addPublic = ({ id, file, content, expectedFindings, notes, url }) => {
+    cases.push({
+      id,
+      file,
+      sha256: hash(content),
+      expectedFindings: [...expectedFindings].sort(),
+      reviewedNonFindings: RULE_IDS.filter(
+        (rule) => !expectedFindings.includes(rule),
+      ),
+      source: { type: "public", url },
+      review: { status: "reviewed", notes },
+      content,
+    });
+  };
 
   for (let variant = 0; variant < 8; variant += 1) {
     const trigger = UNTRUSTED_TRIGGERS[variant];
@@ -379,15 +393,104 @@ function createCases() {
       notes: "The neighboring agent job explicitly disables id-token access.",
     });
   }
+
+  addPublic({
+    id: "public-fixed-literal-shell-selector",
+    file: "samples/real-world/fixed-literal-shell-selector.yml",
+    content: workflow({
+      name: "Public regression - fixed literal option",
+      trigger: "pull_request",
+      permissions: { contents: "read" },
+      steps: shellStep(
+        "Compare benchmark",
+        "compare-results ${{ (github.event_name == 'schedule' && github.ref == 'refs/heads/main' || github.head_ref == 'ci/test-duration-tracking') && '--warn-only' || '' }}",
+      ),
+    }),
+    expectedFindings: [],
+    notes: "A public workflow showed that untrusted data used only to select fixed literal flags does not inject attacker-controlled bytes into the shell.",
+    url: "https://github.com/AI-Hypercomputer/maxtext/blob/5f2c70a563d2df8b21c892a51e1d4d4027e68550/.github/workflows/track_performance.yml",
+  });
+  addPublic({
+    id: "public-gh-aw-setup-action",
+    file: "samples/real-world/gh-aw-setup-action.yml",
+    content: workflow({
+      name: "Public regression - gh-aw setup helper",
+      trigger: "issues",
+      permissions: { issues: "write" },
+      steps: [
+        "      - name: Setup Scripts",
+        "        uses: github/gh-aw/actions/setup@9cbca3cd9be433a23a38e4da332635097fd40251",
+      ].join("\n"),
+    }),
+    expectedFindings: [],
+    notes: "The generated gh-aw setup action installs support scripts but is not itself an AI agent execution.",
+    url: "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml",
+  });
+  addPublic({
+    id: "public-provider-name-in-validator-argument",
+    file: "samples/real-world/provider-name-in-validator-argument.yml",
+    content: workflow({
+      name: "Public regression - provider name as data",
+      trigger: "issues",
+      permissions: { issues: "write" },
+      steps: shellStep(
+        "Validate COPILOT_GITHUB_TOKEN secret",
+        "/opt/gh-aw/actions/validate_multi_secret.sh COPILOT_GITHUB_TOKEN 'GitHub Copilot CLI'",
+        { COPILOT_GITHUB_TOKEN: "${{ secrets.COPILOT_GITHUB_TOKEN }}" },
+      ),
+    }),
+    expectedFindings: [],
+    notes: "A provider name passed as an argument to a validator is data, not a Copilot CLI invocation.",
+    url: "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml",
+  });
+  addPublic({
+    id: "public-path-qualified-copilot-cli",
+    file: "samples/real-world/path-qualified-copilot-cli.yml",
+    content: workflow({
+      name: "Public regression - path-qualified Copilot CLI",
+      trigger: "issues",
+      permissions: { issues: "write" },
+      steps: shellStep(
+        "Execute GitHub Copilot CLI",
+        "sudo -E awf -- /bin/bash -c '/usr/local/bin/copilot --prompt review'",
+        { COPILOT_GITHUB_TOKEN: "${{ secrets.COPILOT_GITHUB_TOKEN }}" },
+      ),
+    }),
+    expectedFindings: ["AFA004", "AFA006"],
+    notes: "A path-qualified Copilot executable is an agent invocation and receives a repository secret.",
+    url: "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml",
+  });
+  addPublic({
+    id: "public-action-reference-after-comment",
+    file: "samples/real-world/action-reference-after-comment.yml",
+    content: `${[
+      "name: Public regression - action location",
+      "on: workflow_dispatch",
+      "permissions:",
+      "  contents: read",
+      "jobs:",
+      "  audit:",
+      "    runs-on: ubuntu-latest",
+      "    steps:",
+      "      # openai/codex-action@v1 is installed by the next step.",
+      "      - name: Run Codex",
+      "        uses: openai/codex-action@v1",
+      "        env:",
+      "          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}",
+    ].join("\n")}\n`,
+    expectedFindings: ["AFA006"],
+    notes: "The finding must point to the action step rather than an earlier comment containing the same action reference.",
+    url: "https://github.com/jitsucom/jitsu/blob/f55bc9793abf4e6e05fd04b0e4dae8067f183d94/.github/workflows/security-fix.yml",
+  });
   return cases;
 }
 
 function manifestFor(cases) {
   return {
     schemaVersion: 1,
-    datasetVersion: "0.2.0-1",
+    datasetVersion: "0.3.0-1",
     description:
-      "Deterministic synthetic neighboring cases for Agent Flow Audit rules.",
+      "Deterministic neighboring cases plus minimized, attributed public-workflow regressions for Agent Flow Audit rules.",
     rules: RULE_IDS,
     cases: cases.map((item) => {
       const manifestItem = { ...item };

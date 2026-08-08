@@ -63,3 +63,51 @@ jobs:
 
   assert.deepEqual(ruleIds.sort(), ["AFA001", "AFA004"]);
 });
+
+void test("distinguishes generated gh-aw support steps from a path-qualified Copilot CLI", () => {
+  const source = `name: Generated lock regression
+on: issues
+permissions:
+  issues: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Scripts
+        uses: github/gh-aw/actions/setup@0123456789abcdef
+      - name: Validate COPILOT_GITHUB_TOKEN secret
+        run: /opt/gh-aw/actions/validate_multi_secret.sh COPILOT_GITHUB_TOKEN 'GitHub Copilot CLI'
+        env:
+          COPILOT_GITHUB_TOKEN: \${{ secrets.COPILOT_GITHUB_TOKEN }}
+      - name: Execute GitHub Copilot CLI
+        run: sudo -E awf -- /bin/bash -c '/usr/local/bin/copilot --prompt review'
+        env:
+          COPILOT_GITHUB_TOKEN: \${{ secrets.COPILOT_GITHUB_TOKEN }}
+`;
+  const findings = evaluateWorkflow(parseWorkflow("generated.lock.yml", source));
+
+  assert.deepEqual(
+    findings.map((finding) => [finding.ruleId, finding.message]).sort(),
+    [
+      ["AFA004", "Execute GitHub Copilot CLI runs on issues with write access to issues."],
+      ["AFA006", "Execute GitHub Copilot CLI receives a secret or repository token."],
+    ],
+  );
+});
+
+void test("does not treat a fixed-literal conditional flag as shell taint", () => {
+  const source = `name: Fixed option selector
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare benchmark
+        run: |
+          compare-results \${{ (github.event_name == 'schedule' && github.ref == 'refs/heads/main' || github.head_ref == 'ci/test-duration-tracking') && '--warn-only' || '' }}
+`;
+
+  assert.deepEqual(evaluateWorkflow(parseWorkflow("selector.yml", source)), []);
+});

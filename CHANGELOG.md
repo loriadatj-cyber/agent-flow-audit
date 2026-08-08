@@ -2,6 +2,23 @@
 
 All notable changes will be documented in this file.
 
+## 0.1.3 - 2026-08-08
+
+### Added
+
+- Add five minimized, attributed regression cases from a ten-repository public
+  workflow pilot, expanding the reproducible corpus to 117 cases.
+- Publish aggregate pilot methodology, pinned candidate commits, manual review
+  results, and responsible-adoption guardrails.
+
+### Fixed
+
+- Detect path-qualified agent executables such as `/usr/local/bin/copilot`.
+- Stop treating `github/gh-aw/actions/setup`, provider names passed as validator
+  arguments, and fixed-literal conditional flags as agent or shell flows.
+- Resolve action findings to the actual YAML step instead of an earlier comment
+  or repeated support step.
+
 ## 0.1.2 - 2026-08-08
 
 ### Added

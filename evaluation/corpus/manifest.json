@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "datasetVersion": "0.2.0-1",
-  "description": "Deterministic synthetic neighboring cases for Agent Flow Audit rules.",
+  "datasetVersion": "0.3.0-1",
+  "description": "Deterministic neighboring cases plus minimized, attributed public-workflow regressions for Agent Flow Audit rules.",
   "rules": [
     "AFA001",
     "AFA002",
@@ -2869,6 +2869,123 @@
       "review": {
         "status": "reviewed",
         "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "public-fixed-literal-shell-selector",
+      "file": "samples/real-world/fixed-literal-shell-selector.yml",
+      "sha256": "904c056918be765464c47349ed4af37363d7356a11870ca91cbc65499a89be9b",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "public",
+        "url": "https://github.com/AI-Hypercomputer/maxtext/blob/5f2c70a563d2df8b21c892a51e1d4d4027e68550/.github/workflows/track_performance.yml"
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A public workflow showed that untrusted data used only to select fixed literal flags does not inject attacker-controlled bytes into the shell."
+      }
+    },
+    {
+      "id": "public-gh-aw-setup-action",
+      "file": "samples/real-world/gh-aw-setup-action.yml",
+      "sha256": "32f6ecde5f6afc01df8746f46514696a20c8c44357b016ffee40d9a2b9eb5092",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "public",
+        "url": "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml"
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The generated gh-aw setup action installs support scripts but is not itself an AI agent execution."
+      }
+    },
+    {
+      "id": "public-provider-name-in-validator-argument",
+      "file": "samples/real-world/provider-name-in-validator-argument.yml",
+      "sha256": "7de9c13d0dbab233fb5af707c0052046a129f033da016527ec4d01f37e463516",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "public",
+        "url": "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml"
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A provider name passed as an argument to a validator is data, not a Copilot CLI invocation."
+      }
+    },
+    {
+      "id": "public-path-qualified-copilot-cli",
+      "file": "samples/real-world/path-qualified-copilot-cli.yml",
+      "sha256": "32e04371cfd774c6fd269770cfe2c4e857d4675d31218cc9d6eefa29dd576bd7",
+      "expectedFindings": [
+        "AFA004",
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "public",
+        "url": "https://github.com/colindembovsky/cols-agent-tasks/blob/3645e6c68b21713da27fa247d7a966dffe87582c/.github/workflows/issue-triage.lock.yml"
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A path-qualified Copilot executable is an agent invocation and receives a repository secret."
+      }
+    },
+    {
+      "id": "public-action-reference-after-comment",
+      "file": "samples/real-world/action-reference-after-comment.yml",
+      "sha256": "9241be63744990b2847728116a6dc7aad0456682cd27ac457ef74fd6d87613d8",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "public",
+        "url": "https://github.com/jitsucom/jitsu/blob/f55bc9793abf4e6e05fd04b0e4dae8067f183d94/.github/workflows/security-fix.yml"
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The finding must point to the action step rather than an earlier comment containing the same action reference."
       }
     }
   ]

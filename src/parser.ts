@@ -1,9 +1,10 @@
 import { parseDocument } from "yaml";
 
-import { locate } from "./location.js";
+import { locate, locateAfter } from "./location.js";
 import { parsePermissions } from "./permissions.js";
 import type {
   ParsedWorkflow,
+  Location,
   PermissionMap,
   WorkflowJob,
   WorkflowStep,
@@ -38,14 +39,19 @@ function parseActionsYaml(path: string, source: string): ParsedWorkflow {
       ? parsePermissions(job.permissions)
       : globalPermissions;
     const rawSteps = Array.isArray(job.steps) ? job.steps : [];
-    const steps = rawSteps.map((rawStep, index) =>
-      parseStep(path, source, rawStep, index),
-    );
+    const jobLocation = locate(path, source, `${jobId}:`);
+    const steps: WorkflowStep[] = [];
+    let anchor = jobLocation;
+    for (const [index, rawStep] of rawSteps.entries()) {
+      const parsed = parseStep(path, source, rawStep, index, anchor);
+      steps.push(parsed);
+      anchor = parsed.location;
+    }
     jobs.push({
       id: jobId,
       permissions: jobPermissions,
       steps,
-      location: locate(path, source, `${jobId}:`),
+      location: jobLocation,
     });
   }
 
@@ -116,6 +122,7 @@ function parseStep(
   source: string,
   rawStep: unknown,
   index: number,
+  anchor: Location,
 ): WorkflowStep {
   const step = asRecord(rawStep);
   const uses = typeof step.uses === "string" ? step.uses : undefined;
@@ -124,7 +131,12 @@ function parseStep(
     typeof step.name === "string"
       ? step.name
       : uses ?? (run === undefined ? `step-${index + 1}` : run.split(/\r?\n/u)[0] ?? `step-${index + 1}`);
-  const needle = uses ?? run?.split(/\r?\n/u)[0] ?? name;
+  const location =
+    typeof step.name === "string"
+      ? locateYamlScalarAfter(path, source, "name", step.name, anchor)
+      : uses !== undefined
+        ? locateYamlScalarAfter(path, source, "uses", uses, anchor)
+        : locateAfter(path, source, run?.split(/\r?\n/u)[0] ?? name, anchor);
 
   return {
     index,
@@ -134,8 +146,38 @@ function parseStep(
     ...(run === undefined ? {} : { run }),
     with: asRecord(step.with),
     env: asRecord(step.env),
-    location: locate(path, source, needle),
+    location,
   };
+}
+
+function locateYamlScalarAfter(
+  path: string,
+  source: string,
+  key: string,
+  value: string,
+  anchor: Location,
+): Location {
+  const lines = source.split(/\r?\n/u);
+  const keyPattern = new RegExp(`^\\s*(?:-\\s*)?${key}:\\s*(.+?)\\s*$`, "u");
+  for (let index = Math.max(0, anchor.line - 1); index < lines.length; index += 1) {
+    const line = lines[index] ?? "";
+    const match = keyPattern.exec(line);
+    if (match === null) continue;
+    const raw = (match[1] ?? "").replace(/\s+#.*$/u, "").trim();
+    const scalar =
+      (raw.startsWith('"') && raw.endsWith('"')) ||
+      (raw.startsWith("'") && raw.endsWith("'"))
+        ? raw.slice(1, -1)
+        : raw;
+    if (scalar === value) {
+      return {
+        path,
+        line: index + 1,
+        column: Math.max(1, line.indexOf(value) + 1),
+      };
+    }
+  }
+  return locateAfter(path, source, value, anchor);
 }
 
 function parseTriggers(value: unknown): string[] {

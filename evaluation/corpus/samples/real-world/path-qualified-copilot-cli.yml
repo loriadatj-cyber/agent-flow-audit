@@ -1,0 +1,12 @@
+name: Public regression - path-qualified Copilot CLI
+on: issues
+permissions:
+  issues: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute GitHub Copilot CLI
+        run: "sudo -E awf -- /bin/bash -c '/usr/local/bin/copilot --prompt review'"
+        env:
+          COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}

@@ -1,0 +1,10 @@
+name: Public regression - fixed literal option
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare benchmark
+        run: "compare-results ${{ (github.event_name == 'schedule' && github.ref == 'refs/heads/main' || github.head_ref == 'ci/test-duration-tracking') && '--warn-only' || '' }}"

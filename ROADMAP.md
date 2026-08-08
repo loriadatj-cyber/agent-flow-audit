@@ -18,7 +18,7 @@ over rule count.
 - Add action metadata for newly observed Codex, Claude, Gemini, and Copilot
   integrations
 - Scope suppressions to jobs and steps
-- Document compatible generated Agentic Workflow lock files
+- [x] Document and regression-test generated Agentic Workflow lock files
 
 ## 0.3: Policy
 
@@ -38,6 +38,6 @@ over rule count.
 
 - Offer report-only scans to consenting open-source maintainers
 - Submit fixes privately or through responsible pull requests
-- Publish reproducible, anonymized evaluation results
+- [x] Publish reproducible, aggregate public-pilot evaluation results
 - Track installs, active repositories, issues, and merged fixes without
   manufacturing activity
