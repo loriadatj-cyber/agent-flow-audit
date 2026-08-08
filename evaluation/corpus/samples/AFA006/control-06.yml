@@ -1,0 +1,12 @@
+name: Agent without secret 6
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codex CLI evaluation 6
+        id: agent
+        run: |
+          codex exec "Review the prepared release notes."

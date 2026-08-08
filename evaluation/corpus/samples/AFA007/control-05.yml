@@ -1,0 +1,14 @@
+name: Agent without OIDC 5
+on: workflow_dispatch
+permissions:
+  contents: read
+  id-token: none
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository agent evaluation 5
+        id: agent
+        uses: example/ai-agent@v1
+        with:
+          prompt: "Review the deployment manifest."

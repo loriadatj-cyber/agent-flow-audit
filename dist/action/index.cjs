@@ -7550,7 +7550,7 @@ var AGENT_ACTION_PATTERNS = [
   /openai\/codex-action/iu,
   /anthropics\/claude-code-action/iu,
   /google-github-actions\/run-gemini-cli/iu,
-  /github\/gh-aw(?:\/|$)/iu,
+  /github\/gh-aw(?:[/@]|$)/iu,
   /(?:^|[/_-])(?:ai-)?agent(?:[/_@-]|$)/iu,
   /^agentic:/iu
 ];

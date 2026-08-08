@@ -1,0 +1,12 @@
+name: Privileged prompt flow 6
+on: discussion
+permissions:
+  checks: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codex CLI evaluation 6
+        id: agent
+        run: |
+          codex exec "${{ github.event.discussion.body }}"

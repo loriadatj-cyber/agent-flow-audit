@@ -1,0 +1,12 @@
+name: Agent without secret 8
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini CLI evaluation 8
+        id: agent
+        run: |
+          gemini "Review the prepared release notes."

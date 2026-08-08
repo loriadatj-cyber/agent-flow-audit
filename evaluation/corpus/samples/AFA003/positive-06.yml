@@ -1,0 +1,10 @@
+name: Event data shell flow 6
+on: discussion
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event data
+        run: "printf '%s\\n' ${{ github.event.discussion.body }}"

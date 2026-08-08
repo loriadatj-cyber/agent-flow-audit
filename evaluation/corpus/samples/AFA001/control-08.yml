@@ -1,0 +1,12 @@
+name: Read-only prompt flow 8
+on: pull_request_target
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini CLI evaluation 8
+        id: agent
+        run: |
+          gemini "${{ github.event.pull_request.body }}"

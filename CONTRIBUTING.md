@@ -18,6 +18,14 @@ npm run verify
 
 Node.js 20, 22, and 24 are supported.
 
+## Evaluation cases
+
+Evaluation cases must include either a public source URL with compatible
+licensing or deterministic synthetic generation metadata. Run
+`npm run evaluation:update` after an intentional corpus change and commit the
+updated manifest and result files. Do not add private workflows, secrets, or
+uncoordinated security findings from another project.
+
 ## Rule changes
 
 A rule contribution should include:

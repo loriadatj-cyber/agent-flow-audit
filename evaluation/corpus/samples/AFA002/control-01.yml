@@ -1,0 +1,18 @@
+name: Agent output artifact flow 1
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codex evaluation 1
+        id: review
+        uses: openai/codex-action@v1
+        with:
+          prompt: "Write structured output to result.json."
+      - name: Store reviewed output
+        uses: actions/upload-artifact@v4
+        with:
+          name: reviewed-output
+          path: result.json

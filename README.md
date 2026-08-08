@@ -145,11 +145,28 @@ not declare permissions.
 Read [docs/threat-model.md](docs/threat-model.md) before treating the scanner as
 a blocking control.
 
+## Reproducible evaluation
+
+The committed evaluation baseline contains 112 reviewed synthetic cases: eight
+positive and eight neighboring control cases for every rule. Each case records
+its expected findings, reviewed non-findings, generation metadata, review note,
+and SHA-256 digest.
+
+```bash
+npm run evaluation:check
+```
+
+See [evaluation/README.md](evaluation/README.md) for the methodology, current
+[per-rule precision and recall](evaluation/results/latest.md), reproduction
+steps, and known blind spots. These metrics describe the controlled corpus and
+are not presented as unconstrained real-world accuracy.
+
 ## Development
 
 ```bash
 npm install
 npm run verify
+npm run evaluation:check
 node dist/cli.js test/fixtures/unsafe.yml --fail-on none
 ```
 

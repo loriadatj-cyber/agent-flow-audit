@@ -1,0 +1,15 @@
+name: Agent output shell flow 8
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini evaluation 3
+        id: review
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          prompt: "Return a proposed command."
+      - name: Execute model output
+        run: "${{ steps.review.outputs.command }}"

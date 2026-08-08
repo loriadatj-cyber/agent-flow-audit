@@ -1,6 +1,6 @@
 {
   "name": "agent-flow-audit",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Explainable data-flow security analysis for AI-powered GitHub workflows.",
   "type": "module",
   "bin": {
@@ -30,8 +30,13 @@
     "check": "tsc --noEmit",
     "test": "node scripts/run-tests.mjs",
     "test:coverage": "node scripts/run-tests.mjs --coverage",
+    "evaluation": "tsx scripts/evaluate-corpus.ts",
+    "evaluation:generate": "node scripts/generate-evaluation-corpus.mjs --write",
+    "evaluation:generate:check": "node scripts/generate-evaluation-corpus.mjs --check",
+    "evaluation:update": "npm run evaluation:generate && tsx scripts/evaluate-corpus.ts --write",
+    "evaluation:check": "npm run evaluation:generate:check && tsx scripts/evaluate-corpus.ts --check",
     "lint": "eslint .",
-    "verify": "npm run check && npm run lint && npm test && npm run build && npm run build:action && npm run test:action",
+    "verify": "npm run check && npm run lint && npm test && npm run evaluation:check && npm run build && npm run build:action && npm run test:action",
     "prepack": "npm run verify"
   },
   "engines": {

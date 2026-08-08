@@ -13,8 +13,8 @@ over rule count.
 
 ## 0.2: Evaluation
 
-- Build a labeled corpus of at least 100 public and synthetic workflows
-- Publish per-rule precision and recall with reproduction metadata
+- [x] Build a labeled corpus of at least 100 public and synthetic workflows
+- [x] Publish per-rule precision and recall with reproduction metadata
 - Add action metadata for newly observed Codex, Claude, Gemini, and Copilot
   integrations
 - Scope suppressions to jobs and steps

@@ -1,0 +1,15 @@
+name: Agent secret exposure 4
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Agentic Workflow evaluation 4
+        id: agent
+        uses: github/gh-aw@v1
+        with:
+          prompt: "Review the prepared release notes."
+        env:
+          AGENT_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,15 @@
+name: Agent output shell flow 7
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude evaluation 2
+        id: review
+        uses: anthropics/claude-code-action@v1
+        with:
+          prompt: "Return a proposed command."
+      - name: Execute model output
+        run: "${{ steps.review.outputs.command }}"

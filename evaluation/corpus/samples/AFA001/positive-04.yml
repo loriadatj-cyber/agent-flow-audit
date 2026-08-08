@@ -1,0 +1,13 @@
+name: Privileged prompt flow 4
+on: pull_request_review
+permissions:
+  discussions: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Agentic Workflow evaluation 4
+        id: agent
+        uses: github/gh-aw@v1
+        with:
+          prompt: "${{ github.event.review.body }}"

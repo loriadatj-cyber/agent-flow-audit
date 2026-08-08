@@ -1,0 +1,12 @@
+name: Read-only agent capability 7
+on: discussion_comment
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Claude CLI evaluation 7
+        id: agent
+        run: |
+          claude "Review the checked-in policy file."

@@ -1,0 +1,13 @@
+name: Agent OIDC capability 8
+on: workflow_dispatch
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini CLI evaluation 8
+        id: agent
+        run: |
+          gemini "Review the deployment manifest."

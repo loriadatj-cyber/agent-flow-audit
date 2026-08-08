@@ -43,3 +43,23 @@ void test("traces untrusted agentic Markdown content into write capability", asy
 void test("supports explicit rule suppression", async () => {
   assert.deepEqual(await findingsFor("suppressed.yml"), []);
 });
+
+void test("recognizes versioned GitHub Agentic Workflow actions", () => {
+  const source = `name: Agentic review
+on: issues
+permissions:
+  issues: write
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: github/gh-aw@v1
+        with:
+          prompt: \${{ github.event.issue.body }}
+`;
+  const ruleIds = evaluateWorkflow(parseWorkflow("gh-aw.yml", source)).map(
+    (finding) => finding.ruleId,
+  );
+
+  assert.deepEqual(ruleIds.sort(), ["AFA001", "AFA004"]);
+});

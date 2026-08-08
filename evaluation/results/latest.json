@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "datasetVersion": "0.2.0-1",
+  "methodology": "case-level neighboring positive and negative classification",
+  "summary": {
+    "cases": 112,
+    "passed": 112,
+    "failed": 0,
+    "rules": 7,
+    "findings": 70
+  },
+  "rules": [
+    {
+      "ruleId": "AFA001",
+      "truePositive": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 104,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA002",
+      "truePositive": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 104,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA003",
+      "truePositive": 14,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 98,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA004",
+      "truePositive": 16,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 96,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA005",
+      "truePositive": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 104,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA006",
+      "truePositive": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 104,
+      "precision": 1,
+      "recall": 1
+    },
+    {
+      "ruleId": "AFA007",
+      "truePositive": 8,
+      "falsePositive": 0,
+      "falseNegative": 0,
+      "trueNegative": 104,
+      "precision": 1,
+      "recall": 1
+    }
+  ],
+  "mismatches": []
+}

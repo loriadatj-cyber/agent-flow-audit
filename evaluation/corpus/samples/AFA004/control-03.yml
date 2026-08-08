@@ -1,0 +1,13 @@
+name: Read-only agent capability 3
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Gemini evaluation 3
+        id: agent
+        uses: google-github-actions/run-gemini-cli@v1
+        with:
+          prompt: "Review the checked-in policy file."

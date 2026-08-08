@@ -1,0 +1,15 @@
+name: Agent secret exposure 1
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Codex evaluation 1
+        id: agent
+        uses: openai/codex-action@v1
+        with:
+          prompt: "Review the prepared release notes."
+        env:
+          AGENT_TOKEN: ${{ secrets.AGENT_TOKEN }}

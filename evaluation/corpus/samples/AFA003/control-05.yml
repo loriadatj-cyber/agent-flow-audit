@@ -1,0 +1,12 @@
+name: Quoted event environment 5
+on: pull_request_review_comment
+permissions:
+  contents: read
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print quoted environment
+        run: "printf '%s\\n' \"$EVENT_TEXT\""
+        env:
+          EVENT_TEXT: ${{ github.event.comment.body }}

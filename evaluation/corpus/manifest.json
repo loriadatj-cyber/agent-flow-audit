@@ -1,0 +1,2875 @@
+{
+  "schemaVersion": 1,
+  "datasetVersion": "0.2.0-1",
+  "description": "Deterministic synthetic neighboring cases for Agent Flow Audit rules.",
+  "rules": [
+    "AFA001",
+    "AFA002",
+    "AFA003",
+    "AFA004",
+    "AFA005",
+    "AFA006",
+    "AFA007"
+  ],
+  "cases": [
+    {
+      "id": "afa001-positive-01",
+      "file": "samples/AFA001/positive-01.yml",
+      "sha256": "4246e0711ee3b1c8965eca6cdbd6890c400258477cfe3691f5ef4c11b01d2612",
+      "expectedFindings": [
+        "AFA001",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-01",
+      "file": "samples/AFA001/control-01.yml",
+      "sha256": "7606256b9ec7be80077d42517320b78b680df254992b0bb3adbea9608488bf62",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-01",
+      "file": "samples/AFA002/positive-01.yml",
+      "sha256": "25d065b4bc255e512d9b26bfa16216db62acfd30408e7b750b3b5f25847fd7d9",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-01",
+      "file": "samples/AFA002/control-01.yml",
+      "sha256": "61b0afd182b0fd36e99c6687f64ef19282d02de1663470ceb4b52401031ba90f",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-01",
+      "file": "samples/AFA003/positive-01.yml",
+      "sha256": "2a81a28b6a7fcc786bb60cbe5d0fe355c29858176ba07886f6cffe7c219a92eb",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-01",
+      "file": "samples/AFA003/control-01.yml",
+      "sha256": "c5657e17e4854322019e31803766e98c1acb7f406f5d9e4f99274b952017adeb",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-01",
+      "file": "samples/AFA004/positive-01.yml",
+      "sha256": "f6b20522d6a65e419cb6880c71d05b147953494bf6e7ffa1cdb631dd82da8333",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-01",
+      "file": "samples/AFA004/control-01.yml",
+      "sha256": "99ab44d36d7b908d8569ff822088a303fc48596495f4d670748c70950df38625",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-01",
+      "file": "samples/AFA005/positive-01.yml",
+      "sha256": "b099a5128663d2b7835e21244d608a8e5cd4371cbe154afcd73cf937c61f4699",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-01",
+      "file": "samples/AFA005/control-01.yml",
+      "sha256": "b90c49bc0922b2c4cccf2bc5c5c443ffb0fa1c3d8066c7169cf582d7c77af9f0",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-01",
+      "file": "samples/AFA006/positive-01.yml",
+      "sha256": "152eb29c2a765a5a46c773691c22b69f656c6799ce0ade5c9ca416599ada6d27",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-01",
+      "file": "samples/AFA006/control-01.yml",
+      "sha256": "38a99a40d9979aae723ef53e818cc03b9d4a8852c08d97ec6f4fd6c22cdbf683",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-01",
+      "file": "samples/AFA007/positive-01.yml",
+      "sha256": "ed1d33de6708c667207a6f2d131686d64f85cc19470c160faea4020e78b54164",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-01",
+      "file": "samples/AFA007/control-01.yml",
+      "sha256": "88507d8582b6b5a1b5f3ae6db6c833a611d0fef69eefee0a6cce914fe7d6cfec",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 1
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-02",
+      "file": "samples/AFA001/positive-02.yml",
+      "sha256": "204085e347723bbb868f5313937df40846148240adb8b595e5b99368d6585457",
+      "expectedFindings": [
+        "AFA001",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-02",
+      "file": "samples/AFA001/control-02.yml",
+      "sha256": "7e1c526e8636420b7aac31868c02e2fa56da3b4dab01d584f8174c00518f51e6",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-02",
+      "file": "samples/AFA002/positive-02.yml",
+      "sha256": "617057e86416598b0073de0cd7689b2752200215d8362bf176559b089829b38a",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-02",
+      "file": "samples/AFA002/control-02.yml",
+      "sha256": "ec3204e6f8e8e031eda6fdc5af6d2026a190dd5c2ee3f402c9741a29770e4c00",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-02",
+      "file": "samples/AFA003/positive-02.yml",
+      "sha256": "6d2fcd8523a1f152b7df9c156dead9d8746571f6a8098788eea95e269750f19a",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-02",
+      "file": "samples/AFA003/control-02.yml",
+      "sha256": "97451a67508384386f593400e41ab9e71dec7610211cb9cafc82990c078b473b",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-02",
+      "file": "samples/AFA004/positive-02.yml",
+      "sha256": "44b1d340aac87f46935af15048e9e15968fcac979fa3272dc7fa89dd6bd4e757",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-02",
+      "file": "samples/AFA004/control-02.yml",
+      "sha256": "848e8113f6172addac07a537fe022fcef96b23afa76b0bc92c51afaeb7133c4c",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-02",
+      "file": "samples/AFA005/positive-02.yml",
+      "sha256": "03d5f50913593f7d0561ad5350fb0a33482922a5557002312730057240f9014f",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-02",
+      "file": "samples/AFA005/control-02.yml",
+      "sha256": "261a9d7afb9c275a3e33dd82742afb0d770217ff48a9fa9fcdb5a5471d4b396a",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-02",
+      "file": "samples/AFA006/positive-02.yml",
+      "sha256": "2186b11725ba5c86e9fac446405b18510956bfa87034d747d664489e18a3a951",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-02",
+      "file": "samples/AFA006/control-02.yml",
+      "sha256": "4a422b7ca669fc23fd8857bfc206828378634ba156b187eb3ffe9236a9adbe33",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-02",
+      "file": "samples/AFA007/positive-02.yml",
+      "sha256": "30f4e18a84d3aab0125e4cb6546347bcdc2a2a2652ac072c4e655e271f13e03f",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-02",
+      "file": "samples/AFA007/control-02.yml",
+      "sha256": "917a0b9d38e999ba3b0dcce01df014fdf29eea96f6b04206379c4c5693bf3271",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 2
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-03",
+      "file": "samples/AFA001/positive-03.yml",
+      "sha256": "33df451a9e65da6cea8280d21fc4c844099ee5fe401bdec310dfb3689cdd5169",
+      "expectedFindings": [
+        "AFA001",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-03",
+      "file": "samples/AFA001/control-03.yml",
+      "sha256": "da688ec2ce46777f0026d9687e2ebdf9bf70bb40f2a982ad64e047a893ae7734",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-03",
+      "file": "samples/AFA002/positive-03.yml",
+      "sha256": "358c877f511d7f81cd645d29a8a0d93b501b86775a8f63392bd3fd7793b9ab4c",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-03",
+      "file": "samples/AFA002/control-03.yml",
+      "sha256": "d103beaf482402cbdf6c46dd0118d950b232ad386ccc0764bdf9c206b8859c06",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-03",
+      "file": "samples/AFA003/positive-03.yml",
+      "sha256": "f63ea09ad09810349a88efc3b6ed6c1fa05c2c2088aded4e7cac665996b9070b",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-03",
+      "file": "samples/AFA003/control-03.yml",
+      "sha256": "947bf61bf988cff348e6f9809b09a3c939def23e4a31f2d99d5ed8a5e40f571d",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-03",
+      "file": "samples/AFA004/positive-03.yml",
+      "sha256": "d38dbb1e04111eaf06cd4d9cf49b4bca2dd309da8bbfc5af479272a27c2d8835",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-03",
+      "file": "samples/AFA004/control-03.yml",
+      "sha256": "ecd49e433f8d428717a50a5cb57087d0ce47f3c075d19c1792229a05321419aa",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-03",
+      "file": "samples/AFA005/positive-03.yml",
+      "sha256": "e9340d1cbe61068f429faceb3a952b83eeedd6de28cebf488252886978bd0b1a",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-03",
+      "file": "samples/AFA005/control-03.yml",
+      "sha256": "b55a0cc89dae07cd62ffb87dd72534406707eeca88ce289316aa272fd0d23a6f",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-03",
+      "file": "samples/AFA006/positive-03.yml",
+      "sha256": "c2dd52062f4354a95ea2c8ed760d01c2ac50bebe7e906696ef39136915cbfe21",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-03",
+      "file": "samples/AFA006/control-03.yml",
+      "sha256": "1bac8900d9e49eb696a7403931100bdcab21671d0507ee4fb9bb6b0fe60a0573",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-03",
+      "file": "samples/AFA007/positive-03.yml",
+      "sha256": "b02c3a16aaa9f0fe9d0eb827f01d3d9b9be154dd1ce30ec6bb41a568129a9911",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-03",
+      "file": "samples/AFA007/control-03.yml",
+      "sha256": "ef46c40b3c965e234b7375fe00a4bfce3b20aba7c3381d5ca723716b8ec9172f",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 3
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-04",
+      "file": "samples/AFA001/positive-04.yml",
+      "sha256": "5da27ef746be3d92cea6c341eba57634cd7bf4283a3fc93c7c75e2619a55b7e8",
+      "expectedFindings": [
+        "AFA001",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-04",
+      "file": "samples/AFA001/control-04.yml",
+      "sha256": "b87ac3245e000b34207029bcb17036c584b8283a13707e1178e81486ac6ed979",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-04",
+      "file": "samples/AFA002/positive-04.yml",
+      "sha256": "06424c569fe9485f738c8f76776377b51a1c7745fb57fda3797e2922a8665658",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-04",
+      "file": "samples/AFA002/control-04.yml",
+      "sha256": "8f4ba09733ad8270877db32307045455ffa83ad5a122664ed4158391f6d2ade7",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-04",
+      "file": "samples/AFA003/positive-04.yml",
+      "sha256": "e36e223044cab98612d6aa23fc02b629baaf2a9bdcfb3b88db16a83a84e7ec65",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-04",
+      "file": "samples/AFA003/control-04.yml",
+      "sha256": "f78e61c886ac1cc0e2d8e7739e86fa323b09ff55225a45f9fc737413d5fe9b8c",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-04",
+      "file": "samples/AFA004/positive-04.yml",
+      "sha256": "5166db6a4d0f5628a3eae024129393911c1ad014f01ffcc0be22b7f706c41cfe",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-04",
+      "file": "samples/AFA004/control-04.yml",
+      "sha256": "6f9e9f2e8b12e4042567b7f42a6f86a5f0d19fff61b53d8baf533f5ce2bdd77d",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-04",
+      "file": "samples/AFA005/positive-04.yml",
+      "sha256": "c40c840650bf1dcce890c87796ab06645b0a7fb65b2758ae7d860f4a2375c841",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-04",
+      "file": "samples/AFA005/control-04.yml",
+      "sha256": "0026566e9c30d3625af30b489bb412626da8c2c0005c211049d369a074f67f78",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-04",
+      "file": "samples/AFA006/positive-04.yml",
+      "sha256": "69a93e2fc7b379c0b91f4abd786ff7eb0bb4f1dcfa2ad999dbfb4a69c7120523",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-04",
+      "file": "samples/AFA006/control-04.yml",
+      "sha256": "a981437c4c25cd8d312b2b20ea9a7bbf20f031274e138ac0ee3d7c247c8bdd05",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-04",
+      "file": "samples/AFA007/positive-04.yml",
+      "sha256": "9d88b56ca4b26e4b91f758c85455711139ca8914f0695f22f4314c5e6fd2fd72",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-04",
+      "file": "samples/AFA007/control-04.yml",
+      "sha256": "81e560e213b0d7e7639e7859b29fde97e214fe0b20ef873a381654690874263f",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 4
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-05",
+      "file": "samples/AFA001/positive-05.yml",
+      "sha256": "417fdaaadbc5b80cf48c740141723a402e62dd3c9499dafed862baa789f1f9c4",
+      "expectedFindings": [
+        "AFA001",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-05",
+      "file": "samples/AFA001/control-05.yml",
+      "sha256": "791ed0ecbfb3a83708d45617cb82a7fe3706f221bc4384dd9c8142b22ebb94ed",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-05",
+      "file": "samples/AFA002/positive-05.yml",
+      "sha256": "cfef47c97d86b12f203d5630071d2c400632cfbe6d0383d55d640fbf0c1a4f46",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-05",
+      "file": "samples/AFA002/control-05.yml",
+      "sha256": "b387e78dbac4d9ce42502ac8f42e72acf4196603781623a602a2a5eba4f6e788",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-05",
+      "file": "samples/AFA003/positive-05.yml",
+      "sha256": "18470376b3ed4a0f79d6469343fd27dfe1fc9c1f638052eb873b7e1e86697abf",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-05",
+      "file": "samples/AFA003/control-05.yml",
+      "sha256": "14fd22c0b7076a07ad428a601deb688ee0f303ef65cf0a7117014f48c71537a7",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-05",
+      "file": "samples/AFA004/positive-05.yml",
+      "sha256": "f7860853c7bce713966200253b42e81758b7dedda6764aeb32dd7e4d0e7f9c3f",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-05",
+      "file": "samples/AFA004/control-05.yml",
+      "sha256": "2b13b671a5bcb60db49378df0a4d05a568031e65c6ceb31e9dcf854f4307e055",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-05",
+      "file": "samples/AFA005/positive-05.yml",
+      "sha256": "2016235b52c9db6962f6c1c157833a284674bda7178539df6b1d72563e851a91",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-05",
+      "file": "samples/AFA005/control-05.yml",
+      "sha256": "f25d6396ae7541059207c17ac0bf85d19d7c8586e5e9cd611ab2dc0b9d92c15c",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-05",
+      "file": "samples/AFA006/positive-05.yml",
+      "sha256": "7d142dd3d06df5e4e687a3ab6667bcc46bafca2f941f804ed5d9bbb5f5abeaf1",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-05",
+      "file": "samples/AFA006/control-05.yml",
+      "sha256": "b57120e6fa8121aa8c9ebd935e3d556592295da57b5587bc8bf3fd2966586dab",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-05",
+      "file": "samples/AFA007/positive-05.yml",
+      "sha256": "73bd750481fa27f0a6f9a1fc405a19fe912397827d2408185a4e028fdfd7aa13",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-05",
+      "file": "samples/AFA007/control-05.yml",
+      "sha256": "f3b84338c29383dddfc650da69b48dd919f609392516b89ad1846842ae5b88a7",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 5
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-06",
+      "file": "samples/AFA001/positive-06.yml",
+      "sha256": "9cf0fa53156567c019963458374611a9f82147d061ba31eaa4d6db8f90e4f323",
+      "expectedFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-06",
+      "file": "samples/AFA001/control-06.yml",
+      "sha256": "f80380af5890c525396b2081df096b47d3b57a44a842356eeac68e39fadf00ab",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-06",
+      "file": "samples/AFA002/positive-06.yml",
+      "sha256": "359c7253ce9a2efc8e09712152359f308f982f671113c8c057b6bb0e67240870",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-06",
+      "file": "samples/AFA002/control-06.yml",
+      "sha256": "50b7e873f5d7921a60f8c5ab8edd59c861149937a6efed4cf371e22ae31a1839",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-06",
+      "file": "samples/AFA003/positive-06.yml",
+      "sha256": "25ecd148d63e9807fef7c7255b3b16a7fee4378883f05f2fcbf6964dc0be50aa",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-06",
+      "file": "samples/AFA003/control-06.yml",
+      "sha256": "2e8d7339d70795978aa539e07ce769ac3e3fa11f422a76185d9a25e1e34a07f0",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-06",
+      "file": "samples/AFA004/positive-06.yml",
+      "sha256": "f35b79aecebec73ca32f10a6961d12b00e3fdb380b1ee02c2d2571703e9dc880",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-06",
+      "file": "samples/AFA004/control-06.yml",
+      "sha256": "914df9b521c8b4ae570627c058b585e1c8d3798ea8a76350880a0e14908b4f85",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-06",
+      "file": "samples/AFA005/positive-06.yml",
+      "sha256": "2150bf3e5f313fbd80edf7a2f40c10905594a1bc9b3a9e1ed8a053ac958241a7",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-06",
+      "file": "samples/AFA005/control-06.yml",
+      "sha256": "35e15cb4d3f88ba8241619c90a04463b2a4f302207cf416ff776e676a22ea3f8",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-06",
+      "file": "samples/AFA006/positive-06.yml",
+      "sha256": "cad4e1003b92ed933730e9d836e109636e7a504b084addf097980fced5ef3dbf",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-06",
+      "file": "samples/AFA006/control-06.yml",
+      "sha256": "69e84ba1cfc3f229e189458729aabe13efe3b57cc4bdff478dd7db84858406ca",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-06",
+      "file": "samples/AFA007/positive-06.yml",
+      "sha256": "951af43be27e3eafa662005d64831e12e8f13d7f7a28beb82ddeaee090e1e363",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-06",
+      "file": "samples/AFA007/control-06.yml",
+      "sha256": "f9d5bacb2425f6c5276aaa3b2598a9ca1a08b4ab0a2c82cefc05c2fbb395d064",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 6
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-07",
+      "file": "samples/AFA001/positive-07.yml",
+      "sha256": "671c05ce0dbf3368909f7e3335446a476e949d02a0afd234e8479fd3efb6aeb3",
+      "expectedFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-07",
+      "file": "samples/AFA001/control-07.yml",
+      "sha256": "c34675c46d612dce864ac21f4380820b9d3d05f675e95980f977a70de77c4f05",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-07",
+      "file": "samples/AFA002/positive-07.yml",
+      "sha256": "acbd39a424f8a9d4568a0ba66bc4f406b470cb9c66914275dab48b1f8056c446",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-07",
+      "file": "samples/AFA002/control-07.yml",
+      "sha256": "dff1bb45e8ee670d0ae63abdd260b000c1b13d53db154d24b1e5a091603bc92b",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-07",
+      "file": "samples/AFA003/positive-07.yml",
+      "sha256": "569cf94dbca85b789b09df47e00f2018dd0d6d4e4c8ca94060a5b3d442e43c2c",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-07",
+      "file": "samples/AFA003/control-07.yml",
+      "sha256": "1cfd64aa7883168e37ff9cf7a5926ae6c16452d9f7268591f464d2f9149d018a",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-07",
+      "file": "samples/AFA004/positive-07.yml",
+      "sha256": "9cf1d99e6fcd3775df93b43ef1a59a800115e220fb64c62ee0e57ad345e33283",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-07",
+      "file": "samples/AFA004/control-07.yml",
+      "sha256": "fe4bddb833866ac77990b75924485aa53cd6f9bf7240b5e646ce83a47946c9ce",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-07",
+      "file": "samples/AFA005/positive-07.yml",
+      "sha256": "a93ca54143ff5b5f2c3b272e4582f64c2670a4d8405420651f10d164c8549b9a",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-07",
+      "file": "samples/AFA005/control-07.yml",
+      "sha256": "b851b1707090d6bfbf11a0c928cd182cea16d2f6d3926cfa85b7045381ec9b5f",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-07",
+      "file": "samples/AFA006/positive-07.yml",
+      "sha256": "758b1cab68365204f13488313b489a9f14c49858e006b299132e615d9e638d7c",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-07",
+      "file": "samples/AFA006/control-07.yml",
+      "sha256": "c05f715fb401e59ec1565e7b60896175a37fd760c4986b685fa95d04f57f6a09",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-07",
+      "file": "samples/AFA007/positive-07.yml",
+      "sha256": "e9debce78172ee0d0b5327f183bdf7fdc03d5efdf523320b2f2491434ca0bd4a",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-07",
+      "file": "samples/AFA007/control-07.yml",
+      "sha256": "5f124b02456701c7f5a28479f6c99fb10f1f8119da3c4aee040738ccc0efeede",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 7
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    },
+    {
+      "id": "afa001-positive-08",
+      "file": "samples/AFA001/positive-08.yml",
+      "sha256": "7a8957813bf7da4ba2e5eb6b654872f447e415c36bc63a108c5c6a1cc596a8c7",
+      "expectedFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA002",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Untrusted event text reaches an agent that retains a write capability."
+      }
+    },
+    {
+      "id": "afa001-control-08",
+      "file": "samples/AFA001/control-08.yml",
+      "sha256": "146c315ebe2d2b2266470305e4c4a6d287f7c99e0db3ceca164d1d2ed78bde96",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA001-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The same untrusted prompt is present, but the job is read-only."
+      }
+    },
+    {
+      "id": "afa002-positive-08",
+      "file": "samples/AFA002/positive-08.yml",
+      "sha256": "be32253201143b25464a9fdcac7a30fdb0c4cf9b1d4dbce0a33ed7331d241529",
+      "expectedFindings": [
+        "AFA002"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A later shell step interpolates output produced by the agent step."
+      }
+    },
+    {
+      "id": "afa002-control-08",
+      "file": "samples/AFA002/control-08.yml",
+      "sha256": "3a4534b781ef7c48defbc79fb953625838ef385b812a2f2cf4e88c4422faef02",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA002-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Agent output is stored as an artifact and is not interpolated into a shell."
+      }
+    },
+    {
+      "id": "afa003-positive-08",
+      "file": "samples/AFA003/positive-08.yml",
+      "sha256": "720df846f295d7b859b35aea16cc7d7d9bade83ec404f4df48b6c37b3f195bcc",
+      "expectedFindings": [
+        "AFA003"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Attacker-controlled event data is interpolated directly in run."
+      }
+    },
+    {
+      "id": "afa003-control-08",
+      "file": "samples/AFA003/control-08.yml",
+      "sha256": "dc250311b7c58ed500ee81c71eb5f9e59febf93989bd755b2621f4264cd643d3",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA003-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "Event data is assigned to an environment variable and quoted in the shell."
+      }
+    },
+    {
+      "id": "afa004-positive-08",
+      "file": "samples/AFA004/positive-08.yml",
+      "sha256": "b2a9b878311e652b35a9afb1489b5c70e3932e47f60801238bc18f81f14edce2",
+      "expectedFindings": [
+        "AFA004"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "An agent runs on an untrusted trigger with a write capability."
+      }
+    },
+    {
+      "id": "afa004-control-08",
+      "file": "samples/AFA004/control-08.yml",
+      "sha256": "b0bd71c2c64b57d87fa7923b0790f7758b51e4b6d1c968ead373732251532304",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA004-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent runs on the same trigger with read-only permissions."
+      }
+    },
+    {
+      "id": "afa005-positive-08",
+      "file": "samples/AFA005/positive-08.yml",
+      "sha256": "7140cb839b934c21072f97fcc85272598dc6674639b37f1031cc115be2af8b25",
+      "expectedFindings": [
+        "AFA005"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "pull_request_target checks out a pull-request-controlled head ref."
+      }
+    },
+    {
+      "id": "afa005-control-08",
+      "file": "samples/AFA005/control-08.yml",
+      "sha256": "4d858ca6b7b1a5e1b36e81e4bdf932dc34f9c1c8660924d04001bdb32034003a",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA005-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The target workflow uses the trusted base, or the head checkout uses pull_request."
+      }
+    },
+    {
+      "id": "afa006-positive-08",
+      "file": "samples/AFA006/positive-08.yml",
+      "sha256": "5f76b1c297833eb7ed99cb0cea95e1aa7e9a10a7e03cfae267f1815cba9a441d",
+      "expectedFindings": [
+        "AFA006"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "A secret or repository token is made available to the agent process."
+      }
+    },
+    {
+      "id": "afa006-control-08",
+      "file": "samples/AFA006/control-08.yml",
+      "sha256": "63551206e117eed0dca2138f774a658ea132dd1cf01f05db55bf7d22f5066160",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA006-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent step receives no secret or repository token."
+      }
+    },
+    {
+      "id": "afa007-positive-08",
+      "file": "samples/AFA007/positive-08.yml",
+      "sha256": "b976e151618de177c7250f3cfee73e4a67714e4089b674015776c5a259683222",
+      "expectedFindings": [
+        "AFA007"
+      ],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-positive",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The agent job can mint an OpenID Connect token."
+      }
+    },
+    {
+      "id": "afa007-control-08",
+      "file": "samples/AFA007/control-08.yml",
+      "sha256": "57e87a22d39a35cfb4ac08cd930228b61c20984936cf2b8914ad72a35be8d412",
+      "expectedFindings": [],
+      "reviewedNonFindings": [
+        "AFA001",
+        "AFA002",
+        "AFA003",
+        "AFA004",
+        "AFA005",
+        "AFA006",
+        "AFA007"
+      ],
+      "source": {
+        "type": "synthetic",
+        "generator": "scripts/generate-evaluation-corpus.mjs",
+        "template": "AFA007-control",
+        "variant": 8
+      },
+      "review": {
+        "status": "reviewed",
+        "notes": "The neighboring agent job explicitly disables id-token access."
+      }
+    }
+  ]
+}
